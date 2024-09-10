@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+import { fetchUserRepos } from './services/GitHubAPI';
+import SearchBar from './components/SearchBar';
 
-function App() {
+interface Repo {
+  id: number;
+  name: string;
+  language: string | null;
+  html_url: string;
+}
+
+const App: React.FC = () => {
+  const [username, setUsername] = useState<string>('');
+  const [repos, setRepos] = useState<Repo[]>([]);
+  const [filteredRepos, setFilteredRepos] = useState<Repo[]>([]);
+  const [filterName, setFilterName] = useState<string>('');
+  const [filterLanguage, setFilterLanguage] = useState<string>('');
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>GitHub Repository Search</h1>
+      <SearchBar onSearch={(value) => setUsername(value)} />
+      {/* <Filter 
+        filterName={filterName} 
+        setFilterName={setFilterName} 
+        filterLanguage={filterLanguage} 
+        setFilterLanguage={setFilterLanguage} 
+      />
+      <RepoList repos={filteredRepos} /> */}
     </div>
   );
-}
+};
 
 export default App;
