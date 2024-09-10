@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import './Filter.css';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 interface FilterProps {
   filterName: string;
@@ -15,29 +18,20 @@ const Filter: React.FC<FilterProps> = ({ filterName, setFilterName, filterLangua
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <button onClick={toggleDropdown} style={{ padding: '10px 20px', cursor: 'pointer' }}>
-        Filter Options
+    <div className="filter-container">
+      <button onClick={toggleDropdown} className="filter-button">
+        <FontAwesomeIcon icon={faFilter} />
       </button>
 
       {isDropdownOpen && (
-        <div style={{
-          marginTop: '10px',
-          padding: '10px',
-          border: '1px solid #ccc',
-          borderRadius: '5px',
-          display: 'inline-block',
-          backgroundColor: '#f9f9f9',
-          position: 'absolute',
-          zIndex: 1
-        }}>
-          <div style={{ marginBottom: '10px' }}>
+        <div className="filter-dropdown">
+          <div>
             <input 
               type="text" 
               placeholder="Filter by repository name..." 
               value={filterName} 
               onChange={(e) => setFilterName(e.target.value)} 
-              style={{ padding: '5px', marginRight: '10px' }}
+              className="filter-input"
             />
           </div>
 
@@ -47,7 +41,7 @@ const Filter: React.FC<FilterProps> = ({ filterName, setFilterName, filterLangua
               placeholder="Filter by language..." 
               value={filterLanguage} 
               onChange={(e) => setFilterLanguage(e.target.value)} 
-              style={{ padding: '5px' }}
+              className="filter-input"
             />
           </div>
         </div>

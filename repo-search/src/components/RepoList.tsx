@@ -1,4 +1,5 @@
 import React from 'react';
+import './RepoList.css';  
 
 interface Repo {
   id: number;
@@ -7,22 +8,26 @@ interface Repo {
   html_url: string;
 }
 
-interface Repos {
+interface RepoListProps {
   repos: Repo[];
 }
 
-const RepoList: React.FC<Repos> = ({ repos }) => {
+const RepoList: React.FC<RepoListProps> = ({ repos }) => {
+  if (repos.length === 0) {
+    return <div className="repo-empty-message">No repositories found</div>;
+  }
+
   return (
-    <ul>
+    <div className="repo-list-container">
       {repos.map((repo) => (
-        <li key={repo.id}>
-          <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+        <div key={repo.id} className="repo-item">
+          <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo-name">
             {repo.name}
-          </a> 
-          {repo.language && <span> - {repo.language}</span>}
-        </li>
+          </a>
+          <span className="repo-language">{repo.language || 'Unknown language'}</span>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 

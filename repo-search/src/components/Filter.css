@@ -1,0 +1,31 @@
+.filter-container {
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+  }
+  
+  .filter-button {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .filter-dropdown {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #f9f9f9;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .filter-dropdown div {
+    margin-bottom: 10px;
+  }
+  
+  .filter-input {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  

@@ -39,15 +39,19 @@ const App: React.FC = () => {
   }, [filterName, filterLanguage, repos]);
 
   return (
-    <div>
+    <div className='App-header'>
       <h1>GitHub Repository Search</h1>
-      <SearchBar onSearch={(value) => setUsername(value)} />
-      <Filter 
-        filterName={filterName} 
-        setFilterName={setFilterName} 
-        filterLanguage={filterLanguage} 
-        setFilterLanguage={setFilterLanguage} 
-      />
+        <div>
+        <SearchBar onSearch={(value) => setUsername(value)} />
+        {filteredRepos.length > 0 && 
+          <Filter 
+            filterName={filterName} 
+            setFilterName={setFilterName} 
+            filterLanguage={filterLanguage} 
+            setFilterLanguage={setFilterLanguage} 
+          />
+         }
+      </div>
       <RepoList repos={filteredRepos} /> 
     </div>
   );
