@@ -17,7 +17,8 @@ const App: React.FC = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [filteredRepos, setFilteredRepos] = useState<Repo[]>([]);
   const [filterName, setFilterName] = useState<string>('');
-  const [filterLanguage, setFilterLanguage] = useState<string>('');
+  const [filterLanguage, setFilterLanguage] = useState<string>('All Languages');
+  const [uniqueLanguages, setUniqueLanguages] = useState<string[]>(['']);
 
   useEffect(() => {
     if (username) {
@@ -25,6 +26,7 @@ const App: React.FC = () => {
         .then((data) => {
           setRepos(data);
           setFilteredRepos(data);
+          setUniqueLanguages(Array.from(new Set(data.map((repo: any) => repo.language).filter((lang: string | null) => lang))));
         })
         .catch((err) => console.error(err));
     }
@@ -33,7 +35,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const filtered = repos.filter((repo) =>
       (filterName === '' || repo.name.toLowerCase().includes(filterName.toLowerCase())) &&
-      (filterLanguage === '' || (repo.language && repo.language.toLowerCase() === filterLanguage.toLowerCase()))
+      (filterLanguage === 'All Languages' || repo.language === filterLanguage)
     );
     setFilteredRepos(filtered);
   }, [filterName, filterLanguage, repos]);
@@ -43,14 +45,13 @@ const App: React.FC = () => {
       <h1>GitHub Repository Search</h1>
         <div>
         <SearchBar onSearch={(value) => setUsername(value)} />
-        {filteredRepos.length > 0 && 
           <Filter 
             filterName={filterName} 
             setFilterName={setFilterName} 
-            filterLanguage={filterLanguage} 
-            setFilterLanguage={setFilterLanguage} 
+            uniqueLanguages={uniqueLanguages} 
+            selectedLanguage={filterLanguage}
+            setFilterLanguage={setFilterLanguage}
           />
-         }
       </div>
       <RepoList repos={filteredRepos} /> 
     </div>
