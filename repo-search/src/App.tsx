@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { fetchUserRepos } from './services/GitHubAPI';
 import SearchBar from './components/SearchBar';
+import RepoList from './components/RepoList';
 
 interface Repo {
   id: number;
@@ -17,6 +18,16 @@ const App: React.FC = () => {
   const [filterName, setFilterName] = useState<string>('');
   const [filterLanguage, setFilterLanguage] = useState<string>('');
 
+  useEffect(() => {
+    if (username) {
+      fetchUserRepos(username)
+        .then((data) => {
+          setRepos(data);
+          // setFilteredRepos(data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [username]);
 
   return (
     <div>
@@ -27,8 +38,8 @@ const App: React.FC = () => {
         setFilterName={setFilterName} 
         filterLanguage={filterLanguage} 
         setFilterLanguage={setFilterLanguage} 
-      />
-      <RepoList repos={filteredRepos} /> */}
+      />*/}
+      <RepoList repos={repos} /> 
     </div>
   );
 };
