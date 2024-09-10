@@ -1,11 +1,11 @@
 .filter-container {
     text-align: center;
-    margin-top: 20px;
     position: relative;
   }
   
   .filter-button {
-    padding: 10px 20px;
+    height: 35px;
+    padding: 7px 7px;
     cursor: pointer;
   }
   

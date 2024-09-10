@@ -44,7 +44,7 @@ const App: React.FC = () => {
   return (
     <div className='App-header'>
       <h1>GitHub Repository Search</h1>
-        <div>
+        <div className='search-filter-container'>
         <SearchBar onSearch={(value) => setUsername(value)} />
           <Filter 
             filterName={filterName} 

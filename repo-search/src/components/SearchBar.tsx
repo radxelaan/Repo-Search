@@ -21,17 +21,17 @@ const SearchBar: React.FC<SearchBarInput> = ({ onSearch }) => {
   };
 
   return (
-    <div>
+    <div className="search-bar-container">
       <input
         type="text"
         placeholder="Enter GitHub username..."
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         onKeyDown={handleKeyDown}  // Listen for Enter key
-        className="search-input"
+        className='search-input'
       />
       <button onClick={handleSearchClick} className="search-button">
-        <FontAwesomeIcon icon={faSearch} /> {/* Magnifying glass icon */}
+        <FontAwesomeIcon icon={faSearch}/> 
       </button>
     </div>
   );

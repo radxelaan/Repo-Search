@@ -17,3 +17,13 @@
   color: #61dafb;
 }
 
+.search-filter-container {
+  background-color: #768c8f;
+  display: flex;
+  width: 250px;
+  flex-direction: row;
+  
+  vertical-align: center;
+  color: white;
+  padding: 10px;
+}
