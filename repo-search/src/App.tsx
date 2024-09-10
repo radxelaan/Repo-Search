@@ -10,6 +10,7 @@ interface Repo {
   name: string;
   language: string | null;
   html_url: string;
+  description: string;
 }
 
 const App: React.FC = () => {

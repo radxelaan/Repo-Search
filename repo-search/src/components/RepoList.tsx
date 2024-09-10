@@ -6,6 +6,7 @@ interface Repo {
   name: string;
   language: string | null;
   html_url: string;
+  description: string;
 }
 
 interface RepoListProps {
@@ -24,6 +25,7 @@ const RepoList: React.FC<RepoListProps> = ({ repos }) => {
           <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo-name">
             {repo.name}
           </a>
+          <p className="repo-description">{repo.description || 'No description available'}</p>
           <span className="repo-language">{repo.language || 'Unknown language'}</span>
         </div>
       ))}
