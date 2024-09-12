@@ -68,7 +68,7 @@ const App: React.FC = () => {
 
   return (
     <div className='App-header'>
-      <h1> <img src={search} className='logo-icon' /> GitHub Repository Search</h1>
+      <h1> <img src={search} className='logo-icon' alt='search logo' /> GitHub Repository Search</h1>
         <div className='search-filter-container'>
         <SearchBar onSearch={(value) => setUsername(value)} />
           <Filter 
