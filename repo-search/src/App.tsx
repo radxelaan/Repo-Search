@@ -33,7 +33,6 @@ const App: React.FC = () => {
       return;
     }
     if (username) {
-
       const fetchRepos = async () => {
         setLoading(true); // Start loading when fetching begins
         try {
@@ -84,7 +83,7 @@ const App: React.FC = () => {
         </div>
         ) : username ? (
           filteredRepos.length > 0 ? (
-            <RepoList repos={filteredRepos} />
+            <RepoList repos={filteredRepos} searchQuery={filterName} />
           ) : (
             <p className='repo-empty-message'>No repositories found.</p>
           )

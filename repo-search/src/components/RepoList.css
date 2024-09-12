@@ -62,4 +62,9 @@
     margin-top: 5px;
   }
 
+  .highlighted {
+    background-color: rgba(215, 252, 255, 0.387); 
+    font-weight: bold;
+  }
+
   

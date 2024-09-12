@@ -11,9 +11,10 @@ interface Repo {
 
 interface RepoListProps {
   repos: Repo[];
+  searchQuery: string;
 }
 
-const RepoList: React.FC<RepoListProps> = ({ repos }) => {
+const RepoList: React.FC<RepoListProps> = ({ repos, searchQuery }) => {
   const [animationClass, setAnimationClass] = useState('repo-list-container');
 
   useEffect(() => {
@@ -25,6 +26,18 @@ const RepoList: React.FC<RepoListProps> = ({ repos }) => {
     return () => clearTimeout(timeout); // Clean up timeout
   }, [repos]);
 
+  const highlightText = (text: string, query: string) => {
+    if (!query.trim()) return text; // Return text as is if query is empty
+    const parts = text.split(new RegExp(`(${query})`, 'gi')); // Split text into parts with matched query highlighted
+    return parts.map((part, index) =>
+      part.toLowerCase() === query.toLowerCase() ? (
+        <span key={index} className="highlighted">{part}</span>
+      ) : (
+        part
+      )
+    );
+  };
+
   if (repos.length === 0) {
     return <div></div>;
   }
@@ -34,7 +47,7 @@ const RepoList: React.FC<RepoListProps> = ({ repos }) => {
       {repos.map((repo) => (
         <div key={repo.id} className="repo-item">
           <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo-name">
-            {repo.name}
+            {highlightText(repo.name, searchQuery)}
           </a>
           <p className="repo-description">{repo.description || 'No description available'}</p>
           <span className="repo-language">{repo.language || 'Unknown language'}</span>
