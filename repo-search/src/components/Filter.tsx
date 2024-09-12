@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Filter.css';  
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -37,8 +37,7 @@ const Filter: React.FC<FilterProps> = ({ filterName, setFilterName, uniqueLangua
           </div>
           <div>
             <select value={selectedLanguage} 
-                    onChange={(e) => setFilterLanguage(e.target.value)}
-                    className="filter-dropdown">
+                    onChange={(e) => setFilterLanguage(e.target.value)}>
               <option value="All Languages">All Languages</option>
               {uniqueLanguages.map((language) => (
                 <option key={language} value={language}>

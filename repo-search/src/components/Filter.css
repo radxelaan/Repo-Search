@@ -12,7 +12,8 @@
   }
   
   .filter-dropdown {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-left: 5px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -24,7 +25,6 @@
   
   .filter-dropdown div {
     margin-bottom: 10px;
-    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
   }
   
   .filter-input {
