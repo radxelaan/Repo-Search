@@ -4,6 +4,7 @@ import { fetchUserRepos } from './services/GitHubAPI';
 import SearchBar from './components/SearchBar';
 import RepoList from './components/RepoList';
 import Filter from './components/Filter';
+import loadingGif from './assets/loading.gif'; 
 
 interface Repo {
   id: number;
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   const [filterName, setFilterName] = useState<string>('');
   const [filterLanguage, setFilterLanguage] = useState<string>('All Languages');
   const [uniqueLanguages, setUniqueLanguages] = useState<string[]>(['']);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (username === '') {
@@ -27,16 +29,31 @@ const App: React.FC = () => {
       setRepos([]);
       setFilteredRepos([]);
       setUniqueLanguages([]);
+      setLoading(false);
       return;
     }
     if (username) {
-      fetchUserRepos(username)
-        .then((data) => {
-          setRepos(data);
-          setFilteredRepos(data);
-          setUniqueLanguages(Array.from(new Set(data.map((repo: any) => repo.language).filter((lang: string | null) => lang))));
-        })
-        .catch((err) => console.error(err));
+
+      const fetchRepos = async () => {
+        setLoading(true); // Start loading when fetching begins
+        try {
+          const data = await fetchUserRepos(username); // Fetch using the service
+          if (Array.isArray(data)) {
+            setRepos(data); // Set fetched repos
+            setFilteredRepos(data); // Initially all repos are shown
+  
+            // Get unique languages for filtering
+            const uniqueLanguages = Array.from(new Set(data.map((repo: any) => repo.language).filter(Boolean)));
+            setUniqueLanguages(uniqueLanguages);
+          }
+        } catch (error) {
+          console.error('Error fetching repositories:', error);
+        } finally {
+          setLoading(false); // Stop loading when fetching is complete
+        }
+      };
+  
+      fetchRepos();
     }
   }, [username]);
 
@@ -60,15 +77,18 @@ const App: React.FC = () => {
             selectedLanguage={filterLanguage}
             setFilterLanguage={setFilterLanguage}
           />
-      </div>
-      <RepoList repos={filteredRepos} /> 
-      {username ? (
-        filteredRepos.length > 0 ? (
-          <RepoList repos={filteredRepos} />
-        ) : (
-          <p className='repo-empty-message'>No repositories found.</p>
-        )
-      ) : null}
+      </div> 
+      {loading ? (
+        <div className="loading-container">
+          <img src={loadingGif} alt="Loading..." className="loading-gif" />
+        </div>
+        ) : username ? (
+          filteredRepos.length > 0 ? (
+            <RepoList repos={filteredRepos} />
+          ) : (
+            <p className='repo-empty-message'>No repositories found.</p>
+          )
+        ) : null}
     </div>
   );
 };

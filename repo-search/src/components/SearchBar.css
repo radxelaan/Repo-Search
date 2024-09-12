@@ -1,11 +1,20 @@
 .search-bar-container {
+    margin-right: 10px;
+    flex: 1;
 }
 
 .search-input {
     border-radius: 5px;
-    height: 30px;
+    height: 32px;
+    padding-left: 5%;
+    margin-right: 2px;
+    flex: 1;
+    border: 0;
 }
 
 .search-button {
-    height: 35px;
+    border-radius: 5px;
+    height: 34px;
+    box-sizing: border-box;
+    border: 0;
 }
