@@ -44,6 +44,7 @@ const App: React.FC = () => {
             // Get unique languages for filtering
             const uniqueLanguages = Array.from(new Set(data.map((repo: any) => repo.language).filter(Boolean)));
             setUniqueLanguages(uniqueLanguages);
+            setFilterLanguage('All Languages');
           }
         } catch (error) {
           console.error('Error fetching repositories:', error);
