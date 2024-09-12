@@ -26,7 +26,7 @@ const RepoList: React.FC<RepoListProps> = ({ repos }) => {
   }, [repos]);
 
   if (repos.length === 0) {
-    return <div className="repo-empty-message">No repositories found</div>;
+    return <div></div>;
   }
 
   return (

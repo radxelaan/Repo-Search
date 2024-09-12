@@ -27,3 +27,11 @@
   color: white;
   padding: 17px;
 }
+
+  /* Empty message when no repositories are available */
+  .repo-empty-message {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    padding: 20px;
+  }

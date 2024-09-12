@@ -22,6 +22,13 @@ const App: React.FC = () => {
   const [uniqueLanguages, setUniqueLanguages] = useState<string[]>(['']);
 
   useEffect(() => {
+    if (username === '') {
+      // Clear repos if the username is empty
+      setRepos([]);
+      setFilteredRepos([]);
+      setUniqueLanguages([]);
+      return;
+    }
     if (username) {
       fetchUserRepos(username)
         .then((data) => {
@@ -55,6 +62,13 @@ const App: React.FC = () => {
           />
       </div>
       <RepoList repos={filteredRepos} /> 
+      {username ? (
+        filteredRepos.length > 0 ? (
+          <RepoList repos={filteredRepos} />
+        ) : (
+          <p className='repo-empty-message'>No repositories found.</p>
+        )
+      ) : null}
     </div>
   );
 };
