@@ -1,3 +1,15 @@
+/* Define keyframes for fade-in and slide-up animation */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Container for the list of repositories */
 .repo-list-container {
     margin-top: 20px;
@@ -9,6 +21,7 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeInSlideUp 0.5s ease-out;
   }
   
   /* Individual repository item */

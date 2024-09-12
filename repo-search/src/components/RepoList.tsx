@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './RepoList.css';  
 
 interface Repo {
@@ -14,12 +14,23 @@ interface RepoListProps {
 }
 
 const RepoList: React.FC<RepoListProps> = ({ repos }) => {
+  const [animationClass, setAnimationClass] = useState('repo-list-container');
+
+  useEffect(() => {
+    setAnimationClass(''); // Remove the animation class
+    const timeout = setTimeout(() => {
+      setAnimationClass('repo-list-container'); // Reapply the animation class after a short delay
+    }, 10); // Small delay to reset the animation
+
+    return () => clearTimeout(timeout); // Clean up timeout
+  }, [repos]);
+
   if (repos.length === 0) {
     return <div className="repo-empty-message">No repositories found</div>;
   }
 
   return (
-    <div className="repo-list-container">
+    <div className={animationClass}>
       {repos.map((repo) => (
         <div key={repo.id} className="repo-item">
           <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo-name">
