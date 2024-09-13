@@ -4,7 +4,7 @@ This is a simple and responsive React application that allows users to search fo
 
 The application is built using React and TypeScript, ensuring type safety and a smooth development experience. The user interface incorporates responsive design principles and follows good UX guidelines for an intuitive search and filtering experience.
 
-The application is currently online at [repo-search.click](repo-search.click)
+The application is currently online at [repo-search.click](https://magical-crostata-c8324b.netlify.app/)
 
 ## Features
 
