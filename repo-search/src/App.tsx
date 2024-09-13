@@ -7,6 +7,9 @@ import Filter from './components/Filter';
 import loadingGif from './assets/loading.gif'; 
 import search from './assets/search.png'; 
 
+/**
+ * Interface for repository data.
+ */
 interface Repo {
   id: number;
   name: string;
@@ -15,6 +18,16 @@ interface Repo {
   description: string;
 }
 
+/**
+ * Main App component for GitHub repository search and filtering.
+ * 
+ * Features:
+ * - Fetch repositories for a GitHub user
+ * - Filter repositories by name and programming language
+ * - Display repositories and loading state
+ * 
+ * @returns {React.FC} GitHub repository search app component.
+ */
 const App: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [repos, setRepos] = useState<Repo[]>([]);
@@ -58,6 +71,9 @@ const App: React.FC = () => {
     }
   }, [username]);
 
+    /**
+   * Effect to filter repositories based on name and language when either of the filters or repos change.
+   */
   useEffect(() => {
     const filtered = repos.filter((repo) =>
       (filterName === '' || repo.name.toLowerCase().includes(filterName.toLowerCase())) &&

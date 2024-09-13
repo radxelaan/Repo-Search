@@ -3,6 +3,10 @@ import './Filter.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
+
+/**
+ * Props interface for the Filter component.
+ */
 interface FilterProps {
   filterName: string;
   setFilterName: (name: string) => void;
@@ -11,6 +15,17 @@ interface FilterProps {
   setFilterLanguage: (selectedLanguage: string) => void;
 }
 
+/**
+ * Filter component for filtering repositories by name and language.
+ * 
+ * @param {string} filterName - The current name filter for repositories.
+ * @param {Function} setFilterName - Function to update the name filter.
+ * @param {string[]} uniqueLanguages - List of unique programming languages available for filtering.
+ * @param {string} selectedLanguage - The currently selected programming language for filtering.
+ * @param {Function} setFilterLanguage - Function to update the selected programming language.
+ * 
+ * @returns {React.FC} A dropdown filter UI that includes repository name and language filters.
+ */
 const Filter: React.FC<FilterProps> = ({ filterName, setFilterName, uniqueLanguages, selectedLanguage, setFilterLanguage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 

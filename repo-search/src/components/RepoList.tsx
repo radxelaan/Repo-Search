@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './RepoList.css';  
 
+/**
+ * Interface representing a repository.
+ */
 interface Repo {
   id: number;
   name: string;
@@ -9,14 +12,28 @@ interface Repo {
   description: string;
 }
 
+/**
+ * Props interface for the RepoList component.
+ */
 interface RepoListProps {
   repos: Repo[];
   searchQuery: string;
 }
 
+/**
+ * RepoList component for displaying a list of repositories.
+ * 
+ * @param {Repo[]} repos - Array of repositories fetched from GitHub.
+ * @param {string} searchQuery - The search query used for highlighting matched text in repository names.
+ * 
+ * @returns {React.FC} A component that renders a list of repositories with highlighting and animations.
+ */
 const RepoList: React.FC<RepoListProps> = ({ repos, searchQuery }) => {
   const [animationClass, setAnimationClass] = useState('repo-list-container');
 
+  /**
+   * Effect to reset the animation class when the list of repositories changes.
+   */
   useEffect(() => {
     setAnimationClass(''); // Remove the animation class
     const timeout = setTimeout(() => {
@@ -26,6 +43,15 @@ const RepoList: React.FC<RepoListProps> = ({ repos, searchQuery }) => {
     return () => clearTimeout(timeout); // Clean up timeout
   }, [repos]);
 
+
+    /**
+   * Highlights parts of the repository name that match the search query.
+   * 
+   * @param {string} text - The repository name to be highlighted.
+   * @param {string} query - The search query to match within the repository name.
+   * 
+   * @returns {JSX.Element[]} Array of JSX elements representing the highlighted text.
+   */
   const highlightText = (text: string, query: string) => {
     if (!query.trim()) return text; // Return text as is if query is empty
     const parts = text.split(new RegExp(`(${query})`, 'gi')); // Split text into parts with matched query highlighted
