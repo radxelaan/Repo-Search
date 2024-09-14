@@ -63,9 +63,12 @@ const SearchBar: React.FC<SearchBarInput> = ({ onSearch }) => {
    */
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      if (isValidUsername(username)) {
+      if (username === '') {
+        setError(null); // No error for blank search
+        onSearch(''); // Clear the list
+      } else if (isValidUsername(username)) {
         setError(null); // Clear error if valid
-        onSearch(username);
+        onSearch(username); // Proceed with search
       } else {
         setError('Invalid username: Only alphanumeric characters or single hyphens are allowed. Username cannot begin or end with a hyphen.');
       }
