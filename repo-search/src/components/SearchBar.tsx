@@ -19,25 +19,56 @@ interface SearchBarInput {
  */
 const SearchBar: React.FC<SearchBarInput> = ({ onSearch }) => {
   const [username, setUsername] = useState<string>('');
+  const [error, setError] = useState<string | null>(null); // State for error message
+
+   /**
+   * Validates the GitHub username based on the following criteria:
+   * - Must contain only alphanumeric characters or single hyphens.
+   * - Cannot begin or end with a hyphen.
+   * 
+   * @param {string} name - The username to validate.
+   * @returns {boolean} - Returns true if the username is valid, false otherwise.
+   */
+  const isValidUsername = (name: string) => {
+    const usernameRegex = /^(?!-)[a-zA-Z0-9-]+(?<!-)$/;
+    return usernameRegex.test(name);
+  };
 
   /**
-   * Handles search button click.
+   * Handles the search button click event. 
+   * If the username is valid, triggers the onSearch function.
+   * Otherwise, it displays an error message.
    * 
-   * @param {React.FormEvent} e - Form event triggered by the search button.
+   * @param {React.FormEvent} e - The form event object.
    */
   const handleSearchClick = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(username);
+    if (username === '') {
+      setError(null); // No error for blank search
+      onSearch(''); // Clear the list
+    } else if (isValidUsername(username)) {
+      setError(null); // Clear error if valid
+      onSearch(username); // Proceed with search
+    } else {
+      setError('Invalid username: Only alphanumeric characters or single hyphens are allowed. Username cannot begin or end with a hyphen.');
+    }
   };
 
-   /**
-   * Handles Enter key press in the search input field.
+  /**
+   * Handles the "Enter" key press event on the input field.
+   * If the username is valid, triggers the onSearch function.
+   * Otherwise, it displays an error message.
    * 
-   * @param {React.KeyboardEvent<HTMLInputElement>} event - Keyboard event triggered by key presses.
+   * @param {React.KeyboardEvent<HTMLInputElement>} event - The keyboard event object.
    */
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      onSearch(username); 
+      if (isValidUsername(username)) {
+        setError(null); // Clear error if valid
+        onSearch(username);
+      } else {
+        setError('Invalid username: Only alphanumeric characters or single hyphens are allowed. Username cannot begin or end with a hyphen.');
+      }
     }
   };
 
@@ -54,6 +85,9 @@ const SearchBar: React.FC<SearchBarInput> = ({ onSearch }) => {
       <button onClick={handleSearchClick} className="search-button">
         <FontAwesomeIcon icon={faSearch}/> 
       </button>
+
+      {/* Display error message if username is invalid */}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

@@ -18,3 +18,10 @@
     box-sizing: border-box;
     border: 0;
 }
+
+.error-message {
+    color: rgb(84, 33, 33);
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
